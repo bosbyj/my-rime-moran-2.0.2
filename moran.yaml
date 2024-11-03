@@ -21,8 +21,8 @@ algebra:
   user_sentence_top:
     __append:
       __patch:
-        - moran_defs:/fly/qx_qo  # ZRM-SPECIFIC
-        - moran_defs:/fly/xq_xo  # ZRM-SPECIFIC
+        # 【自定义】【关闭】- moran_defs:/fly/qx_qo  # ZRM-SPECIFIC
+        # 【自定义】【关闭】- moran_defs:/fly/xq_xo  # ZRM-SPECIFIC
         # 模糊音設置
         # - moran_defs:/bufen/z_zh
         # - moran_defs:/bufen/c_ch
@@ -40,7 +40,7 @@ algebra:
       - derive/^(.+);(\w)(\w)$/$1/      # 構詞可以用 YY
       # ZRM-SPECIFIC: 特殊優化：部分音節字極少，幾乎不參與構詞，則提升對應四碼字的優先級
       # ZRM-SPECIFIC: （僅對自然碼雙拼有效，其他雙拼方案需作對應修改）
-      - derive/^(.+);(bd|dw|df|dw|yl|rw|fs|iw)$/$1$2/  # ZRM-SPECIFIC
+      # 【自定义】【关闭】- derive/^(.+);(bd|dw|df|dw|yl|rw|fs|iw)$/$1$2/  # ZRM-SPECIFIC
       - erase/^(.+);(.+)$/              # 刪除原始編碼以加速檢索
 
 key_bindings:
@@ -119,3 +119,8 @@ octagram:
       translator/+:
         contextual_suggestions: true
         max_homographs: 7
+
+
+#### 【自定义】【补丁】 ####
+__patch:
+  algebra/generate_code/__append/@0: derive|^(.+);(\w)(\w)$|$1$2$3,| # 全碼 YYXX,

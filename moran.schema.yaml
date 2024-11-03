@@ -322,3 +322,55 @@ __include: moran:/octagram/enable_for_sentence
 # 若要禁用，可直接刪掉上面的 __include，或在 custom 文件中寫入：
 # patch:
 #   __include: moran:/octagram/disable
+
+
+# 【自定义】【补丁】
+__patch:
+  schema/dependencies:
+    - moran_fixed
+    - moran_sentence
+    - moran_reverse
+    - stroke
+    - tiger
+
+  engine/translators/@7: ''  # 禁用英文单词输入功能
+  
+  speller/alphabet: abcdefghijklmnopqrstuvwxyz,/;
+  speller/initials: abcdefghijklmnopqrstuvwxyz-
+  # speller/finals: ' '
+  speller/delimiter: " '."
+
+  speller/algebra/+:
+  ## 飞键 可选择性开启
+  # - derive/^([yh])j/$1q/
+  # - derive/^qx/qw/
+  # - derive/^jn/jv/
+  # - derive/^mn/mv/
+  # - derive/^jm/jz/
+  # - derive/^([y])h/$1g/
+  # - derive/^([rgv])f/$1m/
+  # - derive/^([rgv])c/$1n/
+  # - derive/^yj/yq/
+  # - derive/^hj/hq/
+    - derive/^jn/jc/
+    - derive/^jm/jj/
+    - derive/^jy/jw/
+
+  reverse_tiger:
+    tag: reverse_tiger
+    dictionary: tiger
+    enable_completion: true
+    prefix: "`"
+    tips: 〔部件〕
+    __include: reverse_format
+
+  # 輸入四碼時，如果簡碼碼表中含有對應條目，則放置在第二選項。
+  moran/show_chars_anyway: true   # 是否輸出簡碼碼表單字，例：輸入 jwrg 時，次選爲「佳」
+  moran/show_words_anyway: false   # 是否輸出簡碼碼表詞語，例：輸入 lmsd 時，次選爲「兩面三刀」
+
+  # 簡快碼提示（包括字和詞）
+  # 例如 輸入 yy te er 英特爾 會提示「⚡yte」，即使用 yte 可以打出這個詞
+  moran/enable_quick_code_hint: true
+  
+  # 这部分，后期把皮肤移植过来
+  menu/page_size: 3
